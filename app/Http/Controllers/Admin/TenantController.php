@@ -88,7 +88,7 @@ class TenantController extends Controller
     {
         $newStatus = $tenant->status === 'active' ? 'inactive' : 'active';
         $tenant->update(['status' => $newStatus]);
-        
+
         $action = $newStatus === 'active' ? 'ativada' : 'desativada';
         return redirect()->route('admin.tenants.index')->with('success', "A conta do cliente foi {$action} com sucesso.");
     }

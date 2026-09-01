@@ -53,7 +53,7 @@ createInertiaApp({
             .mount(el);
     },
     progress: {
-        color: '#2563EB', // blue-600
+        color: "#2563EB", // blue-600
         showSpinner: true,
     },
 });

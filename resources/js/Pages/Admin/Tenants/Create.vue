@@ -4,7 +4,7 @@ import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head, useForm, Link } from "@inertiajs/vue3";
 
 const form = useForm({
     tenant_name: "",
@@ -117,7 +117,13 @@ const submit = () => {
                             </p>
                         </div>
 
-                        <div class="flex items-center justify-end mt-4 pt-4 border-t">
+                        <div class="flex items-center justify-center space-x-4 mt-6 pt-6 border-t border-gray-100">
+                            <Link
+                                :href="route('admin.tenants.index')"
+                                class="inline-flex items-center rounded-md border border-gray-300 bg-white px-6 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25"
+                            >
+                                Cancelar
+                            </Link>
                             <PrimaryButton :loading="form.processing">
                                 Cadastrar Cliente
                             </PrimaryButton>
