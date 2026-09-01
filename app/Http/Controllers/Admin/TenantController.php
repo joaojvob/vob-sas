@@ -29,6 +29,7 @@ class TenantController extends Controller
         $validated = $request->validate([
             'tenant_name' => ['required', 'string', 'max:255'],
             'tenant_document' => ['nullable', 'string', 'cnpj'],
+            'tenant_plan' => ['required', Rule::in(['trial', 'monthly'])],
             'owner_name' => ['required', 'string', 'max:255'],
             'owner_email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'owner_cpf' => ['required', 'string', 'cpf'],
@@ -38,11 +39,15 @@ class TenantController extends Controller
             'owner_email.unique' => 'Este e-mail já está em uso.',
         ]);
 
+        $expiresAt = $validated['tenant_plan'] === 'trial' ? now()->addDays(7) : now()->addDays(30);
+
         try {
             $action->execute(
                 tenantData: [
                     'name' => $validated['tenant_name'],
                     'document' => preg_replace('/\D/', '', $validated['tenant_document'] ?? ''),
+                    'plan' => $validated['tenant_plan'],
+                    'expires_at' => $expiresAt,
                 ],
                 ownerData: [
                     'name' => $validated['owner_name'],
@@ -70,16 +75,26 @@ class TenantController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'document' => ['nullable', 'string', 'cnpj'],
+            'plan' => ['required', Rule::in(['trial', 'monthly'])],
             'status' => ['required', Rule::in(['active', 'inactive'])],
         ], [
             'document.cnpj' => 'O CNPJ informado é inválido.',
         ]);
 
-        $tenant->update([
+        $updateData = [
             'name' => $validated['name'],
             'document' => preg_replace('/\D/', '', $validated['document'] ?? ''),
+            'plan' => $validated['plan'],
             'status' => $validated['status'],
-        ]);
+        ];
+
+        // Se o plano mudou manualmente pela edição, ajustamos o expires_at (opcional).
+        // Aqui não vou forçar mudança de data só porque trocou o select,
+        // a menos que o status mude pra active de um expirado. 
+        // Simplificando: vamos manter o expires_at como está, a não ser que o usuário mude.
+        // Se precisar de renovação, faremos via RenewAction no futuro.
+
+        $tenant->update($updateData);
 
         return redirect()->route('admin.tenants.index')->with('success', 'Dados do cliente atualizados com sucesso!');
     }

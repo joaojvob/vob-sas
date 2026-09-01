@@ -12,7 +12,8 @@ const props = defineProps({
 
 const form = useForm({
     name: props.tenant.name,
-    document: props.tenant.document || '',
+    document: props.tenant.document || "",
+    plan: props.tenant.plan || 'trial',
     status: props.tenant.status,
 });
 
@@ -44,12 +45,17 @@ const submit = () => {
                 <div class="bg-white p-8 shadow-sm sm:rounded-lg">
                     <form @submit.prevent="submit" class="space-y-6">
                         <div>
-                            <h3 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">
+                            <h3
+                                class="text-lg font-medium text-gray-900 border-b pb-2 mb-4"
+                            >
                                 Dados da Conta / Empresa
                             </h3>
 
                             <div>
-                                <InputLabel for="name" value="Nome da Conta (Ex: Grupo João)" />
+                                <InputLabel
+                                    for="name"
+                                    value="Nome da Conta (Ex: Grupo João)"
+                                />
                                 <TextInput
                                     id="name"
                                     type="text"
@@ -58,11 +64,17 @@ const submit = () => {
                                     :error="form.errors.name"
                                     autofocus
                                 />
-                                <InputError class="mt-2" :message="form.errors.name" />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.name"
+                                />
                             </div>
 
                             <div class="mt-4">
-                                <InputLabel for="document" value="CNPJ da Empresa Mestre (Opcional)" />
+                                <InputLabel
+                                    for="document"
+                                    value="CNPJ da Empresa Mestre (Opcional)"
+                                />
                                 <TextInput
                                     id="document"
                                     type="text"
@@ -72,7 +84,24 @@ const submit = () => {
                                     placeholder="00.000.000/0000-00"
                                     :error="form.errors.document"
                                 />
-                                <InputError class="mt-2" :message="form.errors.document" />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.document"
+                                />
+                            </div>
+
+                            <div class="mt-4">
+                                <InputLabel for="plan" value="Plano" />
+                                <select
+                                    id="plan"
+                                    v-model="form.plan"
+                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                    :class="{'border-red-500': form.errors.plan}"
+                                >
+                                    <option value="trial">Teste (7 dias gratuitos)</option>
+                                    <option value="monthly">Mensal Premium</option>
+                                </select>
+                                <InputError class="mt-2" :message="form.errors.plan" />
                             </div>
 
                             <div class="mt-4">
@@ -85,11 +114,16 @@ const submit = () => {
                                     <option value="active">Ativo</option>
                                     <option value="inactive">Inativo</option>
                                 </select>
-                                <InputError class="mt-2" :message="form.errors.status" />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.status"
+                                />
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-center space-x-4 mt-6 pt-6 border-t border-gray-100">
+                        <div
+                            class="flex items-center justify-center space-x-4 mt-6 pt-6 border-t border-gray-100"
+                        >
                             <Link
                                 :href="route('admin.tenants.index')"
                                 class="inline-flex items-center rounded-md border border-gray-300 bg-white px-6 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25"

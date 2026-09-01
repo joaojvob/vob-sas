@@ -48,7 +48,23 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('logout', [\App\Http\Controllers\Admin\AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
         Route::get('/dashboard', function () {
-            return Inertia::render('Admin/Dashboard');
+            $totalTenants = \App\Models\Tenant::count();
+            $activeTenants = \App\Models\Tenant::where('status', 'active')->count();
+            
+            // Lojas (Stores) totais
+            $totalStores = \App\Models\Store::count();
+
+            // Clientes recentes
+            $recentTenants = \App\Models\Tenant::orderBy('created_at', 'desc')->take(5)->get();
+
+            return Inertia::render('Admin/Dashboard', [
+                'metrics' => [
+                    'total_tenants' => $totalTenants,
+                    'active_tenants' => $activeTenants,
+                    'total_stores' => $totalStores,
+                ],
+                'recent_tenants' => $recentTenants
+            ]);
         })->name('dashboard');
 
         Route::get('tenants', [\App\Http\Controllers\Admin\TenantController::class, 'index'])->name('tenants.index');

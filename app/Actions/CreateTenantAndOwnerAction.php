@@ -28,6 +28,8 @@ class CreateTenantAndOwnerAction
                 'document' => $tenantData['document'] ?? null,
                 'slug' => $tenantData['slug'] ?? Str::slug($tenantData['name']),
                 'status' => 'active',
+                'plan' => $tenantData['plan'] ?? 'trial',
+                'expires_at' => $tenantData['expires_at'] ?? now()->addDays(7),
             ]);
 
             // 2. Criar o Usuário Dono (Owner)
