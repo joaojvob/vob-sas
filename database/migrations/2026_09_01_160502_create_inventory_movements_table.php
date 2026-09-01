@@ -13,13 +13,6 @@ return new class extends Migration
     {
         Schema::create('inventory_movements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('store_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->enum('type', ['in', 'out', 'adjustment']);
-            $table->decimal('quantity', 10, 3);
-            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
