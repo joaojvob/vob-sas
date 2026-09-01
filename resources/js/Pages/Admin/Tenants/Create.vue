@@ -118,7 +118,7 @@ const submit = () => {
                         </div>
 
                         <div class="flex items-center justify-end mt-4 pt-4 border-t">
-                            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                            <PrimaryButton :loading="form.processing">
                                 Cadastrar Cliente
                             </PrimaryButton>
                         </div>

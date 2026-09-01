@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
@@ -8,6 +9,27 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+
+const page = usePage();
+
+watch(() => page.props.flash, (flash) => {
+    if (flash?.success) {
+        window.Swal.fire({
+            icon: 'success',
+            title: 'Sucesso',
+            text: flash.success,
+            timer: 3000,
+            showConfirmButton: false
+        });
+    }
+    if (flash?.error) {
+        window.Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: flash.error,
+        });
+    }
+}, { deep: true, immediate: true });
 </script>
 
 <template>

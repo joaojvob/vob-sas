@@ -83,4 +83,13 @@ class TenantController extends Controller
 
         return redirect()->route('admin.tenants.index')->with('success', 'Dados do cliente atualizados com sucesso!');
     }
+
+    public function toggleStatus(Tenant $tenant): RedirectResponse
+    {
+        $newStatus = $tenant->status === 'active' ? 'inactive' : 'active';
+        $tenant->update(['status' => $newStatus]);
+        
+        $action = $newStatus === 'active' ? 'ativada' : 'desativada';
+        return redirect()->route('admin.tenants.index')->with('success', "A conta do cliente foi {$action} com sucesso.");
+    }
 }
