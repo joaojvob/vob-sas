@@ -36,6 +36,9 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('force-password-change', [\App\Http\Controllers\Auth\ForcePasswordChangeController::class, 'create'])->name('password.force.change');
+    Route::post('force-password-change', [\App\Http\Controllers\Auth\ForcePasswordChangeController::class, 'store'])->name('password.force.update');
+
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 

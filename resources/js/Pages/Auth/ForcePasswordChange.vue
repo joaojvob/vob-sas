@@ -1,0 +1,65 @@
+<script setup>
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
+import { Head, useForm } from '@inertiajs/vue3';
+
+const form = useForm({
+    password: '',
+    password_confirmation: '',
+});
+
+const submit = () => {
+    form.post(route('password.force.update'), {
+        onFinish: () => form.reset('password', 'password_confirmation'),
+    });
+};
+</script>
+
+<template>
+    <GuestLayout>
+        <Head title="Redefinir Senha Inicial" />
+
+        <div class="mb-4 text-sm text-gray-600">
+            <h2 class="text-lg font-medium text-gray-900 mb-2">Bem-vindo(a)!</h2>
+            <p>Por motivos de segurança, como este é o seu primeiro acesso (ou sua senha foi resetada pelo administrador), você precisa definir uma nova senha antes de continuar.</p>
+        </div>
+
+        <form @submit.prevent="submit">
+            <div>
+                <InputLabel for="password" value="Nova Senha" />
+                <TextInput
+                    id="password"
+                    type="password"
+                    class="mt-1 block w-full"
+                    v-model="form.password"
+                    required
+                    autofocus
+                    autocomplete="new-password"
+                />
+                <InputError class="mt-2" :message="form.errors.password" />
+            </div>
+
+            <div class="mt-4">
+                <InputLabel for="password_confirmation" value="Confirmar Nova Senha" />
+                <TextInput
+                    id="password_confirmation"
+                    type="password"
+                    class="mt-1 block w-full"
+                    v-model="form.password_confirmation"
+                    required
+                    autocomplete="new-password"
+                />
+                <InputError class="mt-2" :message="form.errors.password_confirmation" />
+            </div>
+
+            <div class="mt-6 flex items-center justify-end">
+                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    Salvar e Entrar no Sistema
+                </PrimaryButton>
+            </div>
+        </form>
+    </GuestLayout>
+</template>

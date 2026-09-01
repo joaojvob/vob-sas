@@ -210,7 +210,9 @@ const submit = () => {
                             </div>
 
                             <p class="text-sm text-gray-500 mt-2">
-                                Se a senha ficar em branco, usaremos o CPF (somente números). No primeiro login, o sistema exigirá a troca para garantir a segurança.
+                                Se a senha ficar em branco, usaremos o CPF
+                                (somente números). No primeiro login, o sistema
+                                exigirá a troca para garantir a segurança.
                             </p>
                         </div>
 
