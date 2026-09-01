@@ -46,7 +46,7 @@ const submit = () => {
                                     type="text"
                                     class="mt-1 block w-full"
                                     v-model="form.tenant_name"
-                                    required
+                                    :error="form.errors.tenant_name"
                                     autofocus
                                 />
                                 <InputError class="mt-2" :message="form.errors.tenant_name" />
@@ -61,6 +61,7 @@ const submit = () => {
                                     v-model="form.tenant_document"
                                     v-maska="'##.###.###/####-##'"
                                     placeholder="00.000.000/0000-00"
+                                    :error="form.errors.tenant_document"
                                 />
                                 <InputError class="mt-2" :message="form.errors.tenant_document" />
                             </div>
@@ -79,7 +80,7 @@ const submit = () => {
                                     type="text"
                                     class="mt-1 block w-full"
                                     v-model="form.owner_name"
-                                    required
+                                    :error="form.errors.owner_name"
                                 />
                                 <InputError class="mt-2" :message="form.errors.owner_name" />
                             </div>
@@ -93,7 +94,7 @@ const submit = () => {
                                     v-model="form.owner_cpf"
                                     v-maska="'###.###.###-##'"
                                     placeholder="000.000.000-00"
-                                    required
+                                    :error="form.errors.owner_cpf"
                                 />
                                 <InputError class="mt-2" :message="form.errors.owner_cpf" />
                             </div>
@@ -105,7 +106,7 @@ const submit = () => {
                                     type="email"
                                     class="mt-1 block w-full"
                                     v-model="form.owner_email"
-                                    required
+                                    :error="form.errors.owner_email"
                                 />
                                 <InputError class="mt-2" :message="form.errors.owner_email" />
                             </div>

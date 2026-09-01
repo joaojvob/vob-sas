@@ -55,7 +55,7 @@ const submit = () => {
                                     type="text"
                                     class="mt-1 block w-full"
                                     v-model="form.name"
-                                    required
+                                    :error="form.errors.name"
                                     autofocus
                                 />
                                 <InputError class="mt-2" :message="form.errors.name" />
@@ -70,6 +70,7 @@ const submit = () => {
                                     v-model="form.document"
                                     v-maska="'##.###.###/####-##'"
                                     placeholder="00.000.000/0000-00"
+                                    :error="form.errors.document"
                                 />
                                 <InputError class="mt-2" :message="form.errors.document" />
                             </div>
