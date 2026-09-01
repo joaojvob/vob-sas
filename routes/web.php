@@ -54,6 +54,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('tenants', [\App\Http\Controllers\Admin\TenantController::class, 'index'])->name('tenants.index');
         Route::get('tenants/create', [\App\Http\Controllers\Admin\TenantController::class, 'create'])->name('tenants.create');
         Route::post('tenants', [\App\Http\Controllers\Admin\TenantController::class, 'store'])->name('tenants.store');
+        Route::get('tenants/{tenant}/edit', [\App\Http\Controllers\Admin\TenantController::class, 'edit'])->name('tenants.edit');
+        Route::put('tenants/{tenant}', [\App\Http\Controllers\Admin\TenantController::class, 'update'])->name('tenants.update');
     });
 });
 

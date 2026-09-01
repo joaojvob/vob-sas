@@ -20,12 +20,12 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Novo Lojista" />
+    <Head title="Novo Cliente" />
 
     <AdminLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Cadastrar Novo Lojista (Tenant)
+                Cadastrar Novo Cliente (Rede/Conta)
             </h2>
         </template>
 
@@ -33,19 +33,14 @@ const submit = () => {
             <div class="mx-auto max-w-2xl sm:px-6 lg:px-8">
                 <div class="bg-white p-8 shadow-sm sm:rounded-lg">
                     <form @submit.prevent="submit" class="space-y-6">
-                        <!-- Dados da Loja -->
+                        <!-- Dados da Conta -->
                         <div>
-                            <h3
-                                class="text-lg font-medium text-gray-900 border-b pb-2 mb-4"
-                            >
-                                Dados do Estabelecimento
+                            <h3 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">
+                                Dados da Conta / Empresa
                             </h3>
 
                             <div>
-                                <InputLabel
-                                    for="tenant_name"
-                                    value="Nome do Estabelecimento"
-                                />
+                                <InputLabel for="tenant_name" value="Nome da Conta (Ex: Grupo João)" />
                                 <TextInput
                                     id="tenant_name"
                                     type="text"
@@ -54,43 +49,31 @@ const submit = () => {
                                     required
                                     autofocus
                                 />
-                                <InputError
-                                    class="mt-2"
-                                    :message="form.errors.tenant_name"
-                                />
+                                <InputError class="mt-2" :message="form.errors.tenant_name" />
                             </div>
 
                             <div class="mt-4">
-                                <InputLabel
-                                    for="tenant_document"
-                                    value="CNPJ (Opcional)"
-                                />
+                                <InputLabel for="tenant_document" value="CNPJ da Empresa Mestre (Opcional)" />
                                 <TextInput
                                     id="tenant_document"
                                     type="text"
                                     class="mt-1 block w-full"
                                     v-model="form.tenant_document"
+                                    v-maska="'##.###.###/####-##'"
+                                    placeholder="00.000.000/0000-00"
                                 />
-                                <InputError
-                                    class="mt-2"
-                                    :message="form.errors.tenant_document"
-                                />
+                                <InputError class="mt-2" :message="form.errors.tenant_document" />
                             </div>
                         </div>
 
                         <!-- Dados do Dono -->
                         <div class="pt-4">
-                            <h3
-                                class="text-lg font-medium text-gray-900 border-b pb-2 mb-4"
-                            >
-                                Dados do Responsável (Login)
+                            <h3 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">
+                                Dados do Cliente Responsável (Login)
                             </h3>
 
                             <div>
-                                <InputLabel
-                                    for="owner_name"
-                                    value="Nome Completo"
-                                />
+                                <InputLabel for="owner_name" value="Nome Completo" />
                                 <TextInput
                                     id="owner_name"
                                     type="text"
@@ -98,10 +81,7 @@ const submit = () => {
                                     v-model="form.owner_name"
                                     required
                                 />
-                                <InputError
-                                    class="mt-2"
-                                    :message="form.errors.owner_name"
-                                />
+                                <InputError class="mt-2" :message="form.errors.owner_name" />
                             </div>
 
                             <div class="mt-4">
@@ -111,16 +91,15 @@ const submit = () => {
                                     type="text"
                                     class="mt-1 block w-full"
                                     v-model="form.owner_cpf"
+                                    v-maska="'###.###.###-##'"
+                                    placeholder="000.000.000-00"
                                     required
                                 />
-                                <InputError
-                                    class="mt-2"
-                                    :message="form.errors.owner_cpf"
-                                />
+                                <InputError class="mt-2" :message="form.errors.owner_cpf" />
                             </div>
 
                             <div class="mt-4">
-                                <InputLabel for="owner_email" value="E-mail" />
+                                <InputLabel for="owner_email" value="E-mail principal" />
                                 <TextInput
                                     id="owner_email"
                                     type="email"
@@ -128,26 +107,18 @@ const submit = () => {
                                     v-model="form.owner_email"
                                     required
                                 />
-                                <InputError
-                                    class="mt-2"
-                                    :message="form.errors.owner_email"
-                                />
+                                <InputError class="mt-2" :message="form.errors.owner_email" />
                             </div>
 
                             <p class="text-sm text-gray-500 mt-2">
                                 A senha inicial será o CPF (somente números). No
-                                primeiro login, o sistema exigirá a troca.
+                                primeiro login, o sistema exigirá a troca para garantir a segurança.
                             </p>
                         </div>
 
-                        <div
-                            class="flex items-center justify-end mt-4 pt-4 border-t"
-                        >
-                            <PrimaryButton
-                                :class="{ 'opacity-25': form.processing }"
-                                :disabled="form.processing"
-                            >
-                                Cadastrar Lojista
+                        <div class="flex items-center justify-end mt-4 pt-4 border-t">
+                            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                                Cadastrar Cliente
                             </PrimaryButton>
                         </div>
                     </form>

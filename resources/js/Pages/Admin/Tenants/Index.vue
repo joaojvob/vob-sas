@@ -8,19 +8,19 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Gerenciar Lojistas" />
+    <Head title="Gerenciar Clientes" />
 
     <AdminLayout>
         <template #header>
             <div class="flex justify-between items-center">
                 <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                    Lojistas (Tenants)
+                    Clientes SaaS (Contas/Redes)
                 </h2>
                 <Link
                     :href="route('admin.tenants.create')"
                     class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700"
                 >
-                    Novo Lojista
+                    Novo Cliente
                 </Link>
             </div>
         </template>
@@ -28,15 +28,16 @@ defineProps({
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="bg-white shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
+                    <div class="p-6 text-gray-900 overflow-x-auto">
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="border-b">
                                     <th class="p-3">ID</th>
-                                    <th class="p-3">Nome da Loja</th>
+                                    <th class="p-3">Conta / Empresa</th>
                                     <th class="p-3">Slug</th>
                                     <th class="p-3">Status</th>
-                                    <th class="p-3">Data de Cadastro</th>
+                                    <th class="p-3">Cadastro</th>
+                                    <th class="p-3 text-right">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,7 +62,7 @@ defineProps({
                                                     : 'bg-red-500'
                                             "
                                         >
-                                            {{ tenant.status }}
+                                            {{ tenant.status === 'active' ? 'Ativo' : 'Inativo' }}
                                         </span>
                                     </td>
                                     <td class="p-3">
@@ -71,13 +72,18 @@ defineProps({
                                             ).toLocaleDateString("pt-BR")
                                         }}
                                     </td>
+                                    <td class="p-3 text-right">
+                                        <Link :href="route('admin.tenants.edit', tenant.id)" class="text-blue-600 hover:text-blue-800 font-medium">
+                                            Editar
+                                        </Link>
+                                    </td>
                                 </tr>
                                 <tr v-if="tenants.length === 0">
                                     <td
-                                        colspan="5"
+                                        colspan="6"
                                         class="p-6 text-center text-gray-500"
                                     >
-                                        Nenhum lojista cadastrado ainda.
+                                        Nenhum cliente cadastrado ainda.
                                     </td>
                                 </tr>
                             </tbody>
