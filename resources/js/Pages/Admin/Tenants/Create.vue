@@ -11,8 +11,10 @@ const form = useForm({
     tenant_document: "",
     tenant_plan: "trial",
     owner_name: "",
+    owner_username: "",
     owner_email: "",
     owner_cpf: "",
+    owner_password: "",
 });
 
 const submit = () => {
@@ -82,17 +84,30 @@ const submit = () => {
                             </div>
 
                             <div class="mt-4">
-                                <InputLabel for="tenant_plan" value="Plano de Assinatura" />
+                                <InputLabel
+                                    for="tenant_plan"
+                                    value="Plano de Assinatura"
+                                />
                                 <select
                                     id="tenant_plan"
                                     v-model="form.tenant_plan"
                                     class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                    :class="{'border-red-500': form.errors.tenant_plan}"
+                                    :class="{
+                                        'border-red-500':
+                                            form.errors.tenant_plan,
+                                    }"
                                 >
-                                    <option value="trial">Teste (7 dias gratuitos)</option>
-                                    <option value="monthly">Mensal Premium</option>
+                                    <option value="trial">
+                                        Teste (7 dias gratuitos)
+                                    </option>
+                                    <option value="monthly">
+                                        Mensal Premium
+                                    </option>
                                 </select>
-                                <InputError class="mt-2" :message="form.errors.tenant_plan" />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.tenant_plan"
+                                />
                             </div>
                         </div>
 
@@ -119,6 +134,25 @@ const submit = () => {
                                 <InputError
                                     class="mt-2"
                                     :message="form.errors.owner_name"
+                                />
+                            </div>
+
+                            <div class="mt-4">
+                                <InputLabel
+                                    for="owner_username"
+                                    value="Usuário de Acesso (Login)"
+                                />
+                                <TextInput
+                                    id="owner_username"
+                                    type="text"
+                                    class="mt-1 block w-full"
+                                    v-model="form.owner_username"
+                                    :error="form.errors.owner_username"
+                                    placeholder="ex: ze.espetinho"
+                                />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.owner_username"
                                 />
                             </div>
 
@@ -157,10 +191,26 @@ const submit = () => {
                                 />
                             </div>
 
+                            <div class="mt-4">
+                                <InputLabel
+                                    for="owner_password"
+                                    value="Senha Inicial (Opcional)"
+                                />
+                                <TextInput
+                                    id="owner_password"
+                                    type="password"
+                                    class="mt-1 block w-full"
+                                    v-model="form.owner_password"
+                                    :error="form.errors.owner_password"
+                                />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.owner_password"
+                                />
+                            </div>
+
                             <p class="text-sm text-gray-500 mt-2">
-                                A senha inicial será o CPF (somente números). No
-                                primeiro login, o sistema exigirá a troca para
-                                garantir a segurança.
+                                Se a senha ficar em branco, usaremos o CPF (somente números). No primeiro login, o sistema exigirá a troca para garantir a segurança.
                             </p>
                         </div>
 

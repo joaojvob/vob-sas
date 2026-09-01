@@ -88,9 +88,19 @@ const toggleStatus = (tenant) => {
                                         {{ tenant.slug }}
                                     </td>
                                     <td class="p-3 text-center">
-                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium" 
-                                              :class="tenant.plan === 'monthly' ? 'bg-indigo-100 text-indigo-800' : 'bg-gray-100 text-gray-800'">
-                                            {{ tenant.plan === 'monthly' ? 'Mensal' : 'Teste' }}
+                                        <span
+                                            class="inline-flex items-center px-2 py-1 rounded text-xs font-medium"
+                                            :class="
+                                                tenant.plan === 'monthly'
+                                                    ? 'bg-indigo-100 text-indigo-800'
+                                                    : 'bg-gray-100 text-gray-800'
+                                            "
+                                        >
+                                            {{
+                                                tenant.plan === "monthly"
+                                                    ? "Mensal"
+                                                    : "Teste"
+                                            }}
                                         </span>
                                     </td>
                                     <td class="p-3 text-center">

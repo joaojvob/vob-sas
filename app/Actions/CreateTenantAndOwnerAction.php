@@ -33,13 +33,13 @@ class CreateTenantAndOwnerAction
             ]);
 
             // 2. Criar o Usuário Dono (Owner)
-            // A senha inicial será o CPF sem formatação ou uma senha padrão.
-            // Para maior segurança, definimos uma senha padrão e obrigamos a troca.
-            $initialPassword = $ownerData['cpf'] ? preg_replace('/\D/', '', $ownerData['cpf']) : 'mudar123';
+            // A senha inicial será a fornecida, ou o CPF sem formatação, ou uma padrão.
+            $initialPassword = $ownerData['password'] ?? ($ownerData['cpf'] ? preg_replace('/\D/', '', $ownerData['cpf']) : 'mudar123');
 
             $user = User::create([
                 'tenant_id' => $tenant->id,
                 'name' => $ownerData['name'],
+                'username' => $ownerData['username'],
                 'email' => $ownerData['email'],
                 'cpf' => $ownerData['cpf'],
                 'password' => Hash::make($initialPassword),

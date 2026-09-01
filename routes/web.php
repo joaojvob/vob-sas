@@ -50,7 +50,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', function () {
             $totalTenants = \App\Models\Tenant::count();
             $activeTenants = \App\Models\Tenant::where('status', 'active')->count();
-            
+
             // Lojas (Stores) totais
             $totalStores = \App\Models\Store::count();
 
@@ -72,6 +72,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('tenants', [\App\Http\Controllers\Admin\TenantController::class, 'store'])->name('tenants.store');
         Route::get('tenants/{tenant}/edit', [\App\Http\Controllers\Admin\TenantController::class, 'edit'])->name('tenants.edit');
         Route::put('tenants/{tenant}', [\App\Http\Controllers\Admin\TenantController::class, 'update'])->name('tenants.update');
+        Route::put('tenants/{tenant}/owner', [\App\Http\Controllers\Admin\TenantController::class, 'updateOwner'])->name('tenants.updateOwner');
         Route::patch('tenants/{tenant}/toggle-status', [\App\Http\Controllers\Admin\TenantController::class, 'toggleStatus'])->name('tenants.toggle-status');
     });
 });
