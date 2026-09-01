@@ -1,6 +1,6 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import { Head, Link } from "@inertiajs/vue3";
 
 defineProps({
     tenants: Array,
@@ -40,19 +40,43 @@ defineProps({
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="tenant in tenants" :key="tenant.id" class="border-b hover:bg-gray-50">
+                                <tr
+                                    v-for="tenant in tenants"
+                                    :key="tenant.id"
+                                    class="border-b hover:bg-gray-50"
+                                >
                                     <td class="p-3">{{ tenant.id }}</td>
-                                    <td class="p-3 font-semibold">{{ tenant.name }}</td>
-                                    <td class="p-3 text-gray-500">{{ tenant.slug }}</td>
+                                    <td class="p-3 font-semibold">
+                                        {{ tenant.name }}
+                                    </td>
+                                    <td class="p-3 text-gray-500">
+                                        {{ tenant.slug }}
+                                    </td>
                                     <td class="p-3">
-                                        <span class="px-2 py-1 rounded text-xs text-white" :class="tenant.status === 'active' ? 'bg-green-500' : 'bg-red-500'">
+                                        <span
+                                            class="px-2 py-1 rounded text-xs text-white"
+                                            :class="
+                                                tenant.status === 'active'
+                                                    ? 'bg-green-500'
+                                                    : 'bg-red-500'
+                                            "
+                                        >
                                             {{ tenant.status }}
                                         </span>
                                     </td>
-                                    <td class="p-3">{{ new Date(tenant.created_at).toLocaleDateString('pt-BR') }}</td>
+                                    <td class="p-3">
+                                        {{
+                                            new Date(
+                                                tenant.created_at,
+                                            ).toLocaleDateString("pt-BR")
+                                        }}
+                                    </td>
                                 </tr>
                                 <tr v-if="tenants.length === 0">
-                                    <td colspan="5" class="p-6 text-center text-gray-500">
+                                    <td
+                                        colspan="5"
+                                        class="p-6 text-center text-gray-500"
+                                    >
                                         Nenhum lojista cadastrado ainda.
                                     </td>
                                 </tr>

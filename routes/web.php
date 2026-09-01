@@ -38,7 +38,7 @@ Route::middleware(['auth:web', 'verified'])->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::prefix('admin')->name('admin.')->group(function () {
-    
+
     Route::middleware('guest:admin')->group(function () {
         Route::get('login', [\App\Http\Controllers\Admin\AuthenticatedSessionController::class, 'create'])->name('login');
         Route::post('login', [\App\Http\Controllers\Admin\AuthenticatedSessionController::class, 'store']);
@@ -57,4 +57,4 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

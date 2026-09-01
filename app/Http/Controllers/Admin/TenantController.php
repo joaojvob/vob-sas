@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Controller;
 use App\Models\Tenant;
 use App\Actions\CreateTenantAndOwnerAction;
 use Illuminate\Http\Request;

@@ -49,7 +49,7 @@ class CreateTenantAndOwnerAction
             // para o tenant_id correto (pois a feature teams está ativada).
             // Definimos o team_id no escopo atual.
             setPermissionsTeamId($tenant->id);
-            
+
             $role = \Spatie\Permission\Models\Role::firstOrCreate([
                 'name' => 'store_owner',
                 'guard_name' => 'web',
